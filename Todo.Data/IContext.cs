@@ -15,5 +15,7 @@ namespace Todo.Data
         IDbSet<TodoList> Lists { get; }
 
         IDbSet<TodoListItem> ListItems { get; }
+
+        Task<int> SaveChangesAsync();
     }
 }

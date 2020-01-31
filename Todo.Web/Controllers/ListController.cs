@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Todo.Data;
-using Todo.Web.Models;
+using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {

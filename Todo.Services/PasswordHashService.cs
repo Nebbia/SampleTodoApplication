@@ -13,15 +13,19 @@ namespace Todo.Services
 
         public (string, string) HashPassword(string rawPassword)
         {
-            var passwordBytes = Encoding.UTF8.GetBytes(rawPassword);
-            var salt = CreateRandomSalt(SALT_SIZE);
+            var salt = Encoding.UTF8.GetString(CreateRandomSalt(SALT_SIZE));
+            var hashedPassword = GetPasswordHash(rawPassword, salt);
 
+            return (hashedPassword, salt);
+        }
+
+        public string GetPasswordHash(string rawPassword, string salt)
+        {
+            var passwordBytes = Encoding.UTF8.GetBytes(rawPassword + "-" + salt);
             using (var sha256Hash = SHA256.Create())
             {
                 var hashedBytes = sha256Hash.ComputeHash(passwordBytes);
-                var hashString = Encoding.UTF8.GetString(hashedBytes);
-
-                return (hashString, Encoding.UTF8.GetString(salt));
+                return Encoding.UTF8.GetString(hashedBytes);
             }
         }
 

@@ -151,7 +151,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Injection\DependencyInstaller.cs" />
-    <Compile Include="Models\ListIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +188,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\List\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -207,9 +208,21 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Todo.Common\Todo.Common.csproj">
+      <Project>{D146AB3D-A7B6-4125-A474-8B6081F7982D}</Project>
+      <Name>Todo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Todo.Data\Todo.Data.csproj">
       <Project>{ef22890b-0876-4d5e-a1a3-8c66c5306f1c}</Project>
       <Name>Todo.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Todo.Services\Todo.Services.csproj">
+      <Project>{274C051F-8E24-4F26-94B0-84FE0439D91F}</Project>
+      <Name>Todo.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Todo.Web.ViewModels\Todo.Web.ViewModels.csproj">
+      <Project>{EABE09ED-5F5D-4C62-90B8-715E3891A6DC}</Project>
+      <Name>Todo.Web.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

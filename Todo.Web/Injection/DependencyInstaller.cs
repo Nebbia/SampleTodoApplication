@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Todo.Data;
+using Todo.Services;
 
 namespace Todo.Web.Injection
 {
@@ -16,6 +17,7 @@ namespace Todo.Web.Injection
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             builder.RegisterModule<DataInjectionModule>();
+            builder.RegisterModule<ServiceInjectionModule>();
 
             return builder.Build();
         }

@@ -29,9 +29,6 @@ namespace Todo.Data.Entities
         [MaxLength(200), Required]
         public string LastName { get; set; }
 
-        [Required]
-        public DateTime BirthDate { get; set; }
-
         public virtual IList<TodoList> Lists { get; set; }
     }
 }

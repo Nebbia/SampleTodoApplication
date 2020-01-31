@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Todo.Data.Entities;
 
-namespace Todo.Web.Models
+namespace Todo.Web.ViewModels
 {
     public class ListIndexViewModel
     {

@@ -69,11 +69,35 @@
     <Compile Include="Entities\TodoListItem.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="IContext.cs" />
+    <Compile Include="Migrations\202001302131542_InitialCreate.cs" />
+    <Compile Include="Migrations\202001302131542_InitialCreate.designer.cs">
+      <DependentUpon>202001302131542_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001302233255_AddedUserSaltPasswordFields.cs" />
+    <Compile Include="Migrations\202001302233255_AddedUserSaltPasswordFields.designer.cs">
+      <DependentUpon>202001302233255_AddedUserSaltPasswordFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001302244060_RemoveBirthDateFromUser.cs" />
+    <Compile Include="Migrations\202001302244060_RemoveBirthDateFromUser.designer.cs">
+      <DependentUpon>202001302244060_RemoveBirthDateFromUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TodoDataContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202001302131542_InitialCreate.resx">
+      <DependentUpon>202001302131542_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001302233255_AddedUserSaltPasswordFields.resx">
+      <DependentUpon>202001302233255_AddedUserSaltPasswordFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001302244060_RemoveBirthDateFromUser.resx">
+      <DependentUpon>202001302244060_RemoveBirthDateFromUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
