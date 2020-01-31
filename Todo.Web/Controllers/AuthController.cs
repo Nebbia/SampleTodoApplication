@@ -8,11 +8,11 @@ using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {
-    public class LoginController : Controller
+    public class AuthController : Controller
     {
         private readonly AuthenticateUserService _authenticateUserService;
 
-        public LoginController(AuthenticateUserService authenticateUserService)
+        public AuthController(AuthenticateUserService authenticateUserService)
         {
             _authenticateUserService = authenticateUserService;
         }
@@ -35,8 +35,25 @@ namespace Todo.Web.Controllers
             var authedUser = await _authenticateUserService.GetUserByUsernameAndPassword(
                 loginRequest.Username,
                 loginRequest.Password);
+            SessionContext.Current.CurrentUser = authedUser;
 
             return RedirectToAction("Index", "List");
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            if (SessionContext.Current.CurrentUser == null)
+                return RedirectToAction("Index", "Main");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ExecLogout()
+        {
+            SessionContext.Current.CurrentUser = null;
+            return RedirectToAction("Login");
         }
     }
 }

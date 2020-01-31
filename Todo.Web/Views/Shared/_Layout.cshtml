@@ -24,8 +24,15 @@
                     <li>@Html.ActionLink("My Lists", "Index", "List")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Login", "Login", "Login")</li>
-                    <li>@Html.ActionLink("Sign up", "Create", "User")</li>
+                    @if (SessionContext.Current.CurrentUser == null)
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Auth")</li>
+                        <li>@Html.ActionLink("Sign up", "Create", "User")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Auth")</li>
+                    }
                 </ul>
             </div>
         </div>

@@ -7,6 +7,7 @@ using Todo.Web.ViewModels;
 
 namespace Todo.Web.Controllers
 {
+    [SessionAuthorize]
     public class ListController : Controller
     {
         public readonly IContext _context;

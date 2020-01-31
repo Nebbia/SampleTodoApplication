@@ -35,7 +35,8 @@ namespace Todo.Web.Controllers
             try
             {
                 // create the user
-                await _createUserService.CreateUser(createUserRequest);
+                var newUser = await _createUserService.CreateUser(createUserRequest);
+                SessionContext.Current.CurrentUser = newUser;
 
                 return RedirectToAction("Index", "List");
             }
