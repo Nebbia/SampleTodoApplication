@@ -20,5 +20,9 @@ namespace Todo.Data.Entities
         public DateTime? CompletedOn { get; set; }
 
         public virtual TodoList List { get; set; }
+
+        [ForeignKey(nameof(List))]
+        [Column("ListId")]
+        public Guid ParentListId { get; set; }
     }
 }

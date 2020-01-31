@@ -16,6 +16,9 @@ namespace Todo.Services
             builder.RegisterType<PasswordHashService>().AsSelf();
             builder.RegisterType<CreateUserService>().AsSelf();
             builder.RegisterType<AuthenticateUserService>().AsSelf();
+            builder.RegisterType<SaveListService>().AsSelf();
+            builder.RegisterType<SaveListItemService>().AsSelf();
+            builder.RegisterType<DeleteListService>().AsSelf();
         }
     }
 }

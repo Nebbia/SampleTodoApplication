@@ -35,9 +35,20 @@ namespace Todo.Web.Controllers
             var authedUser = await _authenticateUserService.GetUserByUsernameAndPassword(
                 loginRequest.Username,
                 loginRequest.Password);
-            SessionContext.Current.CurrentUser = authedUser;
 
-            return RedirectToAction("Index", "List");
+            if (authedUser != null)
+            {
+                SessionContext.Current.CurrentUser = authedUser;
+
+                return RedirectToAction("Index", "List");
+            }
+            else
+            {
+                ModelState.AddModelError("OperationResult", "Username/Password combination not valid");
+                loginRequest.Password = string.Empty;
+
+                return View(loginRequest);
+            }
         }
 
         [HttpGet]
