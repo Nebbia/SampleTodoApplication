@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Todo.Data.Entities;
 
 namespace Todo.Web.ViewModels.Extensions
@@ -16,6 +17,18 @@ namespace Todo.Web.ViewModels.Extensions
                 CompletedOn = listItemEntity.CompletedOn?.ToString("MM/dd/yyyy"),
                 IsComplete = listItemEntity.CompletedOn.HasValue ? "Yes" : "No",
                 ListId = listItemEntity.ParentListId
+            };
+        }
+
+        public static TodoListViewModel AsViewModel(this TodoList listEntity)
+        {
+            return new TodoListViewModel
+            {
+                ListId = listEntity.Id,
+                Title = listEntity.Title,
+                Owner = listEntity.Owner.Username,
+                CreatedDate = listEntity.CreatedOn.ToString("MMMM dd, yyyy"),
+                Items = listEntity.Items?.Select(x => x.AsViewModel()).ToList()
             };
         }
     }

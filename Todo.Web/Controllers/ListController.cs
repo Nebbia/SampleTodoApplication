@@ -54,14 +54,7 @@ namespace Todo.Web.Controllers
             if (list == null)
                 return HttpNotFound();
 
-            return View(new TodoListViewModel
-            {
-                ListId = list.Id,
-                Title = list.Title,
-                Owner = list.Owner.Username,
-                CreatedDate = list.CreatedOn.ToString("MMMM dd, yyyy"),
-                Items = list.Items.Select(x => x.AsViewModel()).ToList()
-            });
+            return View(list.AsViewModel());
         }
 
         [HttpPost]
@@ -95,6 +88,33 @@ namespace Todo.Web.Controllers
             {
                 await _deleteListService.DeleteList(id, SessionContext.Current.CurrentUser.Id);
                 return RedirectToAction("Index", "List");
+            }
+            catch (ResourceSharingException)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(Guid id)
+        {
+            var list = await _context.Lists.FirstOrDefaultAsync(x => x.Id == id);
+            if (list == null)
+                return HttpNotFound();
+
+            return View(list.AsViewModel());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(Guid id, TodoListViewModel editRequest)
+        {
+            if (!ModelState.IsValid)
+                return View(editRequest);
+
+            try
+            {
+                await _saveListService.UpdateTodoList(id, editRequest, SessionContext.Current.CurrentUser.Id);
+                return RedirectToAction("Index");
             }
             catch (ResourceSharingException)
             {
