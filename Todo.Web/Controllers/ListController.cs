@@ -17,9 +17,9 @@ namespace Todo.Web.Controllers
     {
         private readonly IContext _context;
         private readonly SaveListService _saveListService;
-        private readonly DeleteListService _deleteListService;
+        private readonly DeleteService _deleteListService;
 
-        public ListController(IContext context, SaveListService saveListService, DeleteListService deleteListService)
+        public ListController(IContext context, SaveListService saveListService, DeleteService deleteListService)
         {
             _context = context;
             _saveListService = saveListService;

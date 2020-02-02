@@ -18,7 +18,7 @@ namespace Todo.Services
             builder.RegisterType<AuthenticateUserService>().AsSelf();
             builder.RegisterType<SaveListService>().AsSelf();
             builder.RegisterType<SaveListItemService>().AsSelf();
-            builder.RegisterType<DeleteListService>().AsSelf();
+            builder.RegisterType<DeleteService>().AsSelf();
         }
     }
 }

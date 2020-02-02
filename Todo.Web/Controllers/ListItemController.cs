@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Todo.Common;
 using Todo.Data;
 using Todo.Services;
 using Todo.Web.ViewModels;
@@ -17,11 +18,13 @@ namespace Todo.Web.Controllers
     {
         private readonly IContext _context;
         private readonly SaveListItemService _saveListItemService;
+        private readonly DeleteService _deleteService;
 
-        public ListItemController(SaveListItemService saveListItemService, IContext context)
+        public ListItemController(SaveListItemService saveListItemService, IContext context, DeleteService deleteService)
         {
             _saveListItemService = saveListItemService;
             _context = context;
+            _deleteService = deleteService;
         }
 
         [HttpGet]
@@ -46,13 +49,37 @@ namespace Todo.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> View(Guid itemId)
+        public async Task<ActionResult> View(Guid id)
         {
-            var listItem = await _context.ListItems.FirstOrDefaultAsync(x => x.Id == itemId);
+            var listItem = await _context.ListItems.FirstOrDefaultAsync(x => x.Id == id);
             if (listItem == null)
                 return HttpNotFound();
 
             return View(listItem.AsViewModel());
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var listItem = await _context.ListItems.FirstOrDefaultAsync(x => x.Id == id);
+            if (listItem == null)
+                return HttpNotFound();
+
+            return View(listItem.AsViewModel());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ExecDelete(Guid id)
+        {
+            try
+            {
+                var listItemDeleted = await _deleteService.DeleteListItem(id, SessionContext.Current.CurrentUser.Id);
+                return RedirectToAction("View", "List", new { id = listItemDeleted.ParentListId });
+            }
+            catch (ResourceSharingException)
+            {
+                return View("Error");
+            }
         }
     }
 }
