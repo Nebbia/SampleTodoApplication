@@ -30,7 +30,6 @@
     <table class="table col-md-5">
         <tr>
             <th>Name</th>
-            <th>Completed?</th>
             <th>Completed On</th>
             <th></th>
         </tr>
@@ -38,7 +37,6 @@
         {
             <tr>
                 <td>@Html.ActionLink(item.Name, "View", "ListItem", new { id = item.Id }, null)</td>
-                <td>@item.IsComplete</td>
                 <td>@item.CompletedOn</td>
                 <td>@Html.ActionLink("Edit", "Edit", "ListItem", new { id = item.Id }, null)</td>
             </tr>

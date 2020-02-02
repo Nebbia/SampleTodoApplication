@@ -81,5 +81,30 @@ namespace Todo.Web.Controllers
                 return View("Error");
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(Guid id)
+        {
+            var listItem = await _context.ListItems.FirstOrDefaultAsync(x => x.Id == id);
+            if (listItem == null)
+                return HttpNotFound();
+
+            return View(listItem.AsEditViewModel());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(Guid id, EditTodoListItemViewModel editRequest)
+        {
+            try
+            {
+                var itemEdited = await _saveListItemService.UpdateListItem(id, editRequest, SessionContext.Current.CurrentUser.Id);
+
+                return RedirectToAction("View", new { id });
+            }
+            catch (ResourceSharingException)
+            {
+                return View("Error");
+            }
+        }
     }
 }

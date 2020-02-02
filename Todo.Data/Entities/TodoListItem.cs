@@ -16,7 +16,6 @@ namespace Todo.Data.Entities
         public string ItemName { get; set; }
         public string Description { get; set; }
         public DateTime AddedOn { get; set; }
-        public bool IsComplete { get; set; }
         public DateTime? CompletedOn { get; set; }
 
         public virtual TodoList List { get; set; }

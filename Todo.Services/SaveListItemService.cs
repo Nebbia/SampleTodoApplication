@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Todo.Common;
 using Todo.Data;
 using Todo.Data.Entities;
 using Todo.Web.ViewModels;
@@ -41,6 +42,29 @@ namespace Todo.Services
             await _context.SaveChangesAsync();
 
             return newTodoListItem;
+        }
+
+        public async Task<TodoListItem> UpdateListItem(Guid id, EditTodoListItemViewModel editRequest, Guid currentUserId)
+        {
+            var listItem = await _context.ListItems
+                .Include(x => x.List)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (listItem == null || listItem.List.OwnerId != currentUserId)
+                throw new ResourceSharingException();
+
+            if (editRequest.IsComplete && !listItem.CompletedOn.HasValue)
+                listItem.CompletedOn = DateTime.Now;
+
+            if (!editRequest.IsComplete)
+                listItem.CompletedOn = null;
+
+            listItem.ItemName = editRequest.Name;
+            listItem.Description = editRequest.Description;
+
+            await _context.SaveChangesAsync();
+
+            return listItem;
         }
     }
 }

@@ -114,7 +114,7 @@ namespace Todo.Web.Controllers
             try
             {
                 await _saveListService.UpdateTodoList(id, editRequest, SessionContext.Current.CurrentUser.Id);
-                return RedirectToAction("Index");
+                return RedirectToAction("View", new { id });
             }
             catch (ResourceSharingException)
             {

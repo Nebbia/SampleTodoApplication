@@ -201,6 +201,7 @@
     <Content Include="Views\List\Delete.cshtml" />
     <Content Include="Views\List\Edit.cshtml" />
     <Content Include="Views\ListItem\Delete.cshtml" />
+    <Content Include="Views\ListItem\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
