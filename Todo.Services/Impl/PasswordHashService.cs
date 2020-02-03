@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Todo.Services
+namespace Todo.Services.Impl
 {
     public class PasswordHashService
     {

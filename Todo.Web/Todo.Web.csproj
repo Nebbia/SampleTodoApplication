@@ -143,6 +143,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Context\ISessionContext.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ListItemController.cs" />
@@ -154,7 +155,7 @@
     <Compile Include="Injection\DependencyInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionAuthorizeAttribute.cs" />
-    <Compile Include="SessionContext.cs" />
+    <Compile Include="Context\SessionContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

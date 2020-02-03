@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Todo.Common;
 using Todo.Data;
 using Todo.Services;
+using Todo.Web.Context;
 using Todo.Web.ViewModels;
 using Todo.Web.ViewModels.Extensions;
 
@@ -17,14 +18,17 @@ namespace Todo.Web.Controllers
     public class ListItemController : Controller
     {
         private readonly IContext _context;
-        private readonly SaveListItemService _saveListItemService;
-        private readonly DeleteService _deleteService;
+        private readonly ISaveListItemService _saveListItemService;
+        private readonly IDeleteService _deleteService;
+        private readonly ISessionContext _sessionContext;
 
-        public ListItemController(SaveListItemService saveListItemService, IContext context, DeleteService deleteService)
+        public ListItemController(ISaveListItemService saveListItemService, IContext context, IDeleteService deleteService,
+            ISessionContext sessionContext)
         {
             _saveListItemService = saveListItemService;
             _context = context;
             _deleteService = deleteService;
+            _sessionContext = sessionContext;
         }
 
         [HttpGet]
@@ -43,7 +47,7 @@ namespace Todo.Web.Controllers
                 return View(createRequest);
 
             await _saveListItemService.CreateListItem(listId,
-                createRequest, SessionContext.Current.CurrentUser.Id);
+                createRequest, _sessionContext.CurrentUser.Id);
 
             return RedirectToAction("View", "List", new { id = listId });
         }
@@ -73,7 +77,7 @@ namespace Todo.Web.Controllers
         {
             try
             {
-                var listItemDeleted = await _deleteService.DeleteListItem(id, SessionContext.Current.CurrentUser.Id);
+                var listItemDeleted = await _deleteService.DeleteListItem(id, _sessionContext.CurrentUser.Id);
                 return RedirectToAction("View", "List", new { id = listItemDeleted.ParentListId });
             }
             catch (ResourceSharingException)
@@ -97,7 +101,7 @@ namespace Todo.Web.Controllers
         {
             try
             {
-                var itemEdited = await _saveListItemService.UpdateListItem(id, editRequest, SessionContext.Current.CurrentUser.Id);
+                var itemEdited = await _saveListItemService.UpdateListItem(id, editRequest, _sessionContext.CurrentUser.Id);
 
                 return RedirectToAction("View", new { id });
             }

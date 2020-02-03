@@ -3,25 +3,10 @@ using System.Web;
 using System.Web.Security;
 using Todo.Data.Entities;
 
-namespace Todo.Web
+namespace Todo.Web.Context
 {
-    public class SessionContext
+    public class SessionContext : ISessionContext
     {
-        private static SessionContext _current;
-
-        public static SessionContext Current
-        {
-            get
-            {
-                if (_current == null)
-                    _current = new SessionContext();
-
-                return _current;
-            }
-        }
-
-        private SessionContext() { }
-
         // instance members
         public User CurrentUser
         {

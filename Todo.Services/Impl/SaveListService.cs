@@ -6,7 +6,7 @@ using Todo.Data;
 using Todo.Data.Entities;
 using Todo.Web.ViewModels;
 
-namespace Todo.Services
+namespace Todo.Services.Impl
 {
     public class SaveListService
     {
